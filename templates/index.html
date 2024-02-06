@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bangla Similar News Extraction App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+
+        form {
+            max-width: 100%;
+            margin: 0 auto; 
+            padding: 0; 
+            text-align: center;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        input {
+            width: calc(100% - 30px); 
+            padding: 8px;
+            height: 100px;
+            margin-bottom: 16px;
+            box-sizing: border-box;
+            border: 1px solid #ddd; 
+            border-radius: 5px; 
+        }
+
+        button {
+            background-color: #007BFF;
+            color: #fff;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-top: 40px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #007BFF;
+            color: #fff;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <h1>Bangla Similar News Extraction App</h1>
+    <div class="container">
+        <form action="/predict" method="post">
+            <label for="input_data">Input News:</label>
+            <input type="text" name="input_data"  required>
+            <button type="submit">Search</button>
+        </form>
+    </div>  
+
+    {% if output %}
+    <div class="container">
+        <h2>Input News:</h2>
+        <table>
+            <tr>
+                <th>News</th>
+                <th>Category</th>
+                <th>Keywords</th>
+            </tr>
+            <tr>
+                <td>{{ input_data }}</td>
+                <td>{{ predicted_category }}</td>
+                <td>{{ predicted_keywords }}</td>
+            </tr>
+        </table>
+
+        <h2>Output:</h2>
+        <table>
+            <tr>
+                <th>News</th>
+                <th>Category</th>
+                <th>Keywords</th>
+                <th>Similarity</th>
+            </tr>
+            {% for item, similar, category, keywords in output %}
+                <tr>
+                    <td>{{ item }}</td>
+                    <td>{{ category }}</td>
+                    <td>{{ keywords }}</td>
+                    <td>{{ similar }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+    {% endif %}
+</body>
+</html>
